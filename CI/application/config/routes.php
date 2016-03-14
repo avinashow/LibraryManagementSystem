@@ -42,7 +42,9 @@ $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
 
-$route['/dashboard'] = "sample";
+$route['/dashboard/(:any)'] = "sample";
+
+$route['/Login'] = "Login";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

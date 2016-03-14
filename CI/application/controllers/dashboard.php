@@ -7,15 +7,16 @@ class Dashboard extends CI_controller {
 		parent::__construct();		
 	}
 	
-	public function index() {
+	public function index($val) {
 		$this->listing();
 	}
 
-	public function listing() {
+	public function listing($di) {
+		echo $di;
 		$this->load->database();
-		$this->load->model('asap_m');
-		$this->asap_m->create_item();
-		$val['a'] = $this->asap_m->get_all();
+		$this->load->model('LoginValidation');
+		$this->LoginValidation->create_item();
+		$val['a'] = $this->LoginValidation->get_all();
 		$this->load->view('sample',$val);
 	}
 }

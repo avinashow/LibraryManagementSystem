@@ -1,6 +1,6 @@
 <?php
 
-class Asap_m extends CI_model{
+class LoginValidation extends CI_model{
 
 	public function __construct() {
 
@@ -35,8 +35,12 @@ class Asap_m extends CI_model{
 
 	}
 
-	public function get_item() {
-
+	public function get_item($uname) {
+		$result = $this->db->get_where('reader',array('username'=>$uname));
+		if ($result->num_rows() > 0) {
+			return true;
+		}
+		return false;
 	}
 
 	public function delete_item() {
