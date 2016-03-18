@@ -44,7 +44,10 @@ $route['404_override'] = '';
 
 $route['/dashboard/(:any)'] = "sample";
 
-$route['/Login'] = "Login";
+$route['/login'] = "Login";
+
+$route["home"] = "HomeController";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

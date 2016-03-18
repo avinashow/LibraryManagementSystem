@@ -7,24 +7,11 @@
 
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-		<link rel="stylesheet" href="assets/css/loginPage.css"/>
+		<link rel="stylesheet" href="/CI/assets/css/loginPage.css"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-		<!--<script>
-			$(document).ready(function(){
-			  $(document).mousemove(function(e){
-			     TweenLite.to($('body'), 
-			        .5, 
-			        { css: 
-			            {
-			                backgroundPosition: ""+ parseInt(event.pageX/8) + "px "+parseInt(event.pageY/'12')+"px, "+parseInt(event.pageX/'15')+"px "+parseInt(event.pageY/'15')+"px, "+parseInt(event.pageX/'30')+"px "+parseInt(event.pageY/'30')+"px"
-			            }
-			        });
-			  });
-			});
-		</script>-->
 
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -78,16 +65,11 @@
 						<li>
 							 <div class="row">
 									<div class="col-md-12">
-										Login via
-										<div class="social-buttons">
-											<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
-											<a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
-										</div>
-		                                or
-										 <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+										Login
+										 <form class="form" role="form" method="post" action="login/validate" accept-charset="UTF-8" id="login-nav">
 												<div class="form-group">
 													 <label class="sr-only" for="exampleInputEmail2">Email address</label>
-													 <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+													 <input type="email" class="form-control" name="uname" id="exampleInputEmail2" placeholder="Email address" required>
 												</div>
 												<div class="form-group">
 													 <label class="sr-only" for="exampleInputPassword2">Password</label>
@@ -95,7 +77,7 @@
 		                                             <div class="help-block text-right"><a href="">Forget the password ?</a></div>
 												</div>
 												<div class="form-group">
-													 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+													 <button type="submit" id="submit" class="btn btn-primary btn-block">Sign in</button>
 												</div>
 												<div class="checkbox">
 													 <label>
