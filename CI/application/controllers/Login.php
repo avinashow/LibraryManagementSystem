@@ -1,6 +1,4 @@
 <?php
-
-
 class Login extends CI_controller {
 	public function __construct() {
 		parent::__construct();
@@ -10,7 +8,6 @@ class Login extends CI_controller {
 	}	
 
 	public function index() {
-		$this->session->sess_destroy();
 		return $this->load->view("loginPage");
 	}
 
@@ -21,7 +18,7 @@ class Login extends CI_controller {
 		if ($this->LoginValidation->get_item($uname)) {
 			$username = explode("@", $uname, -1);
 			$this->session->set_userdata("username",$username[0]);
-			redirect("/home","refresh");
+			redirect("home","refresh");
 		}
 		$data["msg"] = "Wrong Username";
 		return $this->load->view("loginPage",$data);

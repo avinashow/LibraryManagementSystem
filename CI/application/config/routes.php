@@ -41,12 +41,14 @@
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
+$route['login'] = "Login";
 
-$route['/dashboard/(:any)'] = "sample";
+$route['/logout'] = "Logout";
 
-$route['/login'] = "Login";
 
-$route["home"] = "HomeController";
+$route["home"] = "Home";
+
+$route["addbook"] = "BookController";
 
 
 /* End of file routes.php */

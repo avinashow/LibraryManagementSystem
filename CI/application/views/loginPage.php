@@ -55,7 +55,6 @@
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="Search">
 		        </div>
-		        <button type="submit" class="btn btn-default">Submit</button>
 		      </form>
 		      <ul class="nav navbar-nav navbar-right">
 		        <li><p class="navbar-text">Already have an account?</p></li>
@@ -69,7 +68,7 @@
 										 <form class="form" role="form" method="post" action="login/validate" accept-charset="UTF-8" id="login-nav">
 												<div class="form-group">
 													 <label class="sr-only" for="exampleInputEmail2">Email address</label>
-													 <input type="email" class="form-control" name="uname" id="exampleInputEmail2" placeholder="Email address" required>
+													 <input type="text" class="form-control" name="uname" id="exampleInputEmail2" placeholder="Email address" required>
 												</div>
 												<div class="form-group">
 													 <label class="sr-only" for="exampleInputPassword2">Password</label>
@@ -97,5 +96,6 @@
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
+
 	</body>
 </html>
