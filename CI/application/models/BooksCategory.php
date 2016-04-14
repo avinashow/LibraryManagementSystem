@@ -8,11 +8,14 @@ class BooksCategory extends CI_model{
 
 	}
 
-	public function create() {
-
+	public function create($data) {
+		$this->db->insert("book_category", array(
+			"category_id" => $data["categoryid"],
+			"book_id" => $data["bookid"]
+		));
 	}
 
-	public function get_item($author_id) {
+	public function get_item($data) {
 
 	}
 

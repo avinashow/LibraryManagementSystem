@@ -16,14 +16,11 @@ class AuthorInfo extends CI_model{
 	}
 
 	public function get_all() {
-		$this->db->distinct();
-		$this->db->select('firstname,lastname');
-		$this->db->from('author_info');
-		return $this->db->get();
 	}
 
-	public function get_item($author_id) {
-
+	public function getItem($author) {
+		$this->db->select('id');
+		return $this->db->get_where('author_info',array("firstname" => $author["firstname"], "lastname" => $author["lastname"]));
 	}
 
 	public function delete($author_id) {

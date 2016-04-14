@@ -46,9 +46,10 @@ $route['login'] = "Login";
 $route['/logout'] = "Logout";
 
 
-$route["home"] = "Home";
+//$route["home"] = "Home";
+$route["addbook"] = "Home";
 
-$route["addbook"] = "BookController";
+//$route["addbook"] = "BookController";
 
 
 /* End of file routes.php */

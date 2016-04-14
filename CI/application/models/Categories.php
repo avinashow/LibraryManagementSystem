@@ -14,8 +14,9 @@ class Categories extends CI_model{
 		));
 	}
 
-	public function get_item($category_id) {
-
+	public function getItem($data) {
+		$this->db->select("cat_id");
+		return $this->db->get_where("categories", array("category_name"=>$data["Category"]));
 	}
 
 	public function delete($category_id) {

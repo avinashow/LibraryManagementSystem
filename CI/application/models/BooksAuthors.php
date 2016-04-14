@@ -8,8 +8,11 @@ class BooksAuthors extends CI_model{
 
 	}
 
-	public function create() {
-
+	public function create($data) {
+		$this->db->insert("book_authors_info", array(
+			"book_id" => $data["bookid"],
+			"author_id" => $data["authorid"]			
+		));
 	}
 
 	public function get_item($author_id, $book_id) {
