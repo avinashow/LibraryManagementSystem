@@ -13,11 +13,7 @@
 	<!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
 
 	<script>
-		$(document).ready(function(){
-			options();
-			console.log($(".btn-group li"),"hello world");
-
-		});
+		$(document).ready(options);
 
 		function options() {
 			$.get('Home/getOptions','',function(data) {
@@ -39,23 +35,26 @@
 		}
 
 		function displayAddBooksForm(data_objects) {
+			var dataDict = {};
 			var formField = $("#addbooks");
 			var fieldNames = ["ISBN","Edition","Rentable Days"];
 			if (data_objects.length > 0) {
 				for (var i = 0;i < data_objects.length; i++) {
 					for (var key in data_objects[i]) {
+						dataDict[key] = data_objects[i][key];
 						$("<li value='" + data_objects[i][key] +"'><a href='JavaScript:void(0)'>" + key +"</a></li>'").appendTo(".dropdown-menu");
 					}				
 				}
 			}
 			
 			for (var i = 0; i < fieldNames.length; i++) {
-				$("<div class='form-group'><label>" + fieldNames[i] +"</label><input type='text' class='form-control field-size' name='"+ fieldNames[i] +"'/></div>").appendTo(formField);
+				$("<div class='form-group'><label>" + fieldNames[i] +"</label><input type='text' class='form-control field-size' name='"+ fieldNames[i].replace(/\s/g, '') +"'/></div>").appendTo(formField);
 			}
 			$("<input type='submit' id='submit_form' class='btn btn-primary' value='Submit'/>").appendTo(formField);
 
 			$(".btn-group li").click(function() {
 				$("#selvalue").text($(this).text());
+				$("#dichik").val(dataDict[$(this).text()]);
 			});
 		}
 	</script>
@@ -73,7 +72,7 @@
 
 		#addbooksform {
 			position: relative;
-    		left: 70%;
+    		left: 60%;
     		top: 3%;
     		width: 40%;
 		}
@@ -100,13 +99,15 @@
 	<div claa="form-position" id="addbooksform">
 		<div id="heading1"><h1>Add Books / Copies</h1></div>
 		<form role="form" id="addbooks" action="Home/addBooks" method="post" enctype="multipart/form-data">
+			<input type="hidden" id="dichik" name="title" value=""/>
 			<div class="form-group">
 				<label>Title</label><br>
 				<div class="btn-group">
 	                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-	                   <span data-bind="label" id="selvalue">Select One</span>&nbsp;<span class="caret"></span>
+	                   <span data-bind="label" id="selvalue" name="title">Select One</span>&nbsp;<span class="caret"></span>
 	                 </button>
 	                 <ul class="dropdown-menu" role="menu">
+	                 	<li><a href="javascript:void(0)">Select One</a></li>
 	                 </ul>
 	            </div>
         	</div>

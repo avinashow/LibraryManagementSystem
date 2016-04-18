@@ -17,14 +17,13 @@ class BookInfo extends CI_model{
 		));
 	}
 
-	public function getItem($data) {
-		$this->db->select("id");
-		return $this->db->get_where("book_info",array("title" => $data["title"]));
+	public function getBookIdTitle($data) {
+		$this->db->like("title",$data["title"]);
+		return $this->db->get("book_info");
 	}
 
 	public function get_all() {
 		$this->db->select("id,title");
-		//$this->db->from("book_info");
 		return $this->db->get("book_info");
 
 	}

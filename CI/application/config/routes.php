@@ -49,6 +49,8 @@ $route['/logout'] = "Logout";
 //$route["home"] = "Home";
 $route["addbook"] = "Home";
 
+$route["search"] = "Booksearch";
+
 //$route["addbook"] = "BookController";
 
 

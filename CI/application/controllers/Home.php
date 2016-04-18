@@ -16,7 +16,8 @@ class Home extends CI_controller {
 		$this->load->model("BookInfo");
 		$book = $this->BookInfo->get_all();
 		$array = [];
-		foreach ($book->result() as $row) {			
+		foreach ($book->result() as $row) {		
+			$dict = array();	
 			$dict[$row->title] = $row->id;
 			array_push($array,$dict);
 		}
@@ -32,11 +33,16 @@ class Home extends CI_controller {
 		$postDictionary["image_url"] = 'images/'.basename($_FILES["fileToUpload"]["name"]);
 		$this->load->database();
 		$this->load->model('BookInfo');
-		$book_result = $this->BookInfo->getItem($postDictionary);
+		$book_title["title"] = $postDictionary["title"];
+		$book_result = $this->BookInfo->getBookIdTitle($book_title);
 		if ($book_result->num_rows() == 0) { // verify whether these details are present in database
 			$this->BookInfo->create($postDictionary);
-			$book_row= $this->BookInfo->getItem($postDictionary);
+			$book_row= $this->BookInfo->getBookIdTitle($book_title);
 			foreach($book_row->result() as $row) {
+				$book_id = $row->id;
+			}
+		} else {
+			foreach($book_result->result() as $row) {
 				$book_id = $row->id;
 			}
 		}
@@ -111,6 +117,18 @@ class Home extends CI_controller {
 
 		redirect("addbook","refresh");
 
+	}
+
+	function addBooks() {
+		$postBooks["bookid"] = $_POST["title"];
+		$postBooks["isbn"] = $_POST["ISBN"];
+		$postBooks["edition"] = $_POST["Edition"];
+		$postBooks["rent"] = $_POST["RentableDays"];
+		$postBooks["status"] = "Available";
+		$this->load->database();
+		$this->load->model('Books');
+		$this->Books->create($postBooks);
+		redirect("addbook","refresh");
 	}
 }
 
