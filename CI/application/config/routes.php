@@ -41,15 +41,16 @@
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
-$route['login'] = "Login";
 
-$route['/logout'] = "Logout";
+$route['logout'] = "Logout";
 
 
 //$route["home"] = "Home";
 $route["addbook"] = "Home";
 
 $route["search"] = "Booksearch";
+
+$route["myAccount"] = "Myaccount";
 
 //$route["addbook"] = "BookController";
 

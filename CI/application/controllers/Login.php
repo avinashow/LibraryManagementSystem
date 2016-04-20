@@ -12,16 +12,16 @@ class Login extends CI_controller {
 	}
 
 	public function validate() {
-		$uname = $_POST["uname"];
+		//$_GET["data"]["username"];
+		$login["username"] = $_GET["data"]["username"];
+		$login["password"] = $_GET["data"]["password"];
 		$this->load->database();
 		$this->load->model('LoginValidation');
-		if ($this->LoginValidation->get_item($uname)) {
-			$username = explode("@", $uname, -1);
-			$this->session->set_userdata("username",$username[0]);
-			redirect("home","refresh");
-		}
-		$data["msg"] = "Wrong Username";
-		return $this->load->view("loginPage",$data);
+		$response["data"] = "";
+		if ($this->LoginValidation->get_item($login)) {
+			$response["data"] = "success";
+		} 
+		echo json_encode($response);
 	}
 }
 

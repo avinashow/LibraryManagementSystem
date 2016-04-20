@@ -58,3 +58,17 @@
   border:solid;
   border-radius: 10px;
 }
+
+#span-position {
+  position: relative;
+  font-size: 20px;
+  font-family: verdana;
+  left: 30%;
+  top: 10%;
+}
+
+#search {
+  border-radius: 5px;
+}
+
+

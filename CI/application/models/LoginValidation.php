@@ -32,11 +32,10 @@ class LoginValidation extends CI_model{
 	}
 
 	public function update_item() {
-
 	}
 
-	public function get_item($uname) {
-		$result = $this->db->get_where('reader',array('username'=>$uname));
+	public function get_item($data) {
+		$result = $this->db->get_where('reader',array('username'=>$data["username"],'password' => $data["password"]));
 		if ($result->num_rows() > 0) {
 			return true;
 		}
@@ -44,7 +43,6 @@ class LoginValidation extends CI_model{
 	}
 
 	public function delete_item() {
-
 	}
 
 }
