@@ -19,6 +19,7 @@ class Login extends CI_controller {
 		$this->load->model('LoginValidation');
 		$response["data"] = "";
 		if ($this->LoginValidation->get_item($login)) {
+			$this->session->set_userdata("username",$login["username"]);
 			$response["data"] = "success";
 		} 
 		echo json_encode($response);

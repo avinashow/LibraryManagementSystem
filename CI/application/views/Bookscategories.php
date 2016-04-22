@@ -10,49 +10,21 @@
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<script src="http://www.bootply.com/beautifier.js"></script>
 	<!--<link rel="stylesheet" href="/CI/assets/css/loginPage.css"/> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-
+	<!-- materialize script for sidebar navigation-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/IronSummitMedia/startbootstrap-simple-sidebar/gh-pages/css/simple-sidebar.css">
 	<link rel="stylesheet" href="assets/css/HomePage.css">
 	<script src="assets/js/alertify.js"></script>
 	<link rel="stylesheet" href="assets/js/css/alertify.css">
 	<link rel="stylesheet" href="assets/js/css/themes/default.css">
 	<script>
-		$(document).ready(function() {
-			$("#user-account").hide();
-			$("#login-form").show();
-			$("#search").keyup(function() {
-				var val = $(this).val();
-				if (val.length > 0) {
-					$.get("Booksearch/search",{data:$(this).val()}, function(data) {
-						//console.log(data_objects["data"][0]["url"])
-						var data_objects = eval("(" + data + ")");
-						$(".books").empty();
-						if (data_objects["data"].length == 0) {
-							$("<span id='span-position'><p style='font-size:20px;'>No Entries Found</p><span>").appendTo(".books");
-						} else {							
-							displayBooks(data_objects["data"]);
-						}						
-					});
-				} else {
-					$(".books").empty();
-				}				
-			});
-
-			function displayBooks(array_data) {
-				var len = array_data.length;
-				var k = 0;
-				for (var i = 0; i < len; i++) {
-					if (i == (4+(4*k))) {
-						$("<br>").appendTo(".books");
-      					k = k + 1;
-					}
-					$("<div class='search' id='"+ array_data[i]["id"] +"' style='display:inline-block'><div id='image'><img src='"+ array_data[i]["url"] +"' height='100%' width = '100%'></div></div>").appendTo(".books");
-				}
-			}
-
+		$(document).ready(function() {			
 			$("#login").click(function () {
 				var logindata = {};
 				logindata["username"] = $("input[name='username']").val();
@@ -75,40 +47,33 @@
 			});
 		});
 	</script>
-
 	<style>
-		.search {
+		.container {
 			position: relative;
-			top:20%;
-			width:20%;
-			height:50%;
-			padding:30px;
-		}
-
-		.search:hover {
-			box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
-		}
-
-		p {
-			font-family: verdana;
-			font-size: 10px;
-		}
-
-		#image {
-			position: relative;
-			width:100%;
-			height:100%;
-		}
-
-		#searchText {
-			position: relative;
+			top:0%;
 			width: 100%;
-			height: 40%;
+			height: 88%;
+			
 		}
 
-		.dichik {
-			position: fixed;
+		.sidebar-menu {
+			box-shadow: 2px 1px 3px 2px rgba(0, 0, 0, 0.2);
+		    position: relative;
+		    top: 2%;
+		    left: 2%;
+		    width: 20%;
+		    height: 88%;
+		    background-color:#e7e7e7;
 		}
+
+		.sidebar-results {
+		    position: absolute;
+		    left: 23%;
+		    top: 2%;
+		    height: 88%;
+		    width: 77%;
+		}
+
 
 	</style>
 </head>
@@ -131,41 +96,62 @@
 		      <li><a href="search">Home</a></li>
 		      <li><a href="allbooks">Books by Categories</a></li>
 		    </ul>
-		    <div class="col-sm-3 col-md-3">
-		        <form class="navbar-form" role="search">
-			        <div class="input-group">
-			            <input type="text" class="form-control" id="search" placeholder="Search Book" name="search" autocomplete="off">
-			        </div>
-		        </form>
-		    </div>
 		    <ul class="nav navbar-nav navbar-right">
-		      <li class="dropdown" id="login-form">
-		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
-		        <ul class="dropdown-menu">
-		        	<form >
-						<li><label>UserName</label></li>
-						<li><input type="text" name="username" class="form-control" autocomplete="off"/></li>
-						<li><label>Password</label></li>
-						<li><input type="password" name="password" class="form-control" autocomplete="off"/></li>
-						<li class="divider"></li>
-						<li><input type="button" class="btn btn-primary" id="login" value="Login" name="submit"></li>
-		        	</form>		          
-		        </ul>
-		      </li>
-		      <li class="dropdown" id="user-account">
-		        <a href="#" class="dropdown-toggle" id="id" data-toggle="dropdown"><?php echo "Welcome ".$this->session->userdata("username"); ?></a>
-		        <ul class="dropdown-menu">
-		          <li><a href="myAccount">MyAccount</a></li>
-		          <li class="divider"></li>
-		          <li id="logout"><a href="javascript:void(0)">Logout</a></li>
-		        </ul>
-		      </li>
+	    		<li class="dropdown" id="login-form">
+			        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
+			        <ul class="dropdown-menu">
+			        	<form >
+							<li><label>UserName</label></li>
+							<li><input type="text" name="username" class="form-control" autocomplete="off"/></li>
+							<li><label>Password</label></li>
+							<li><input type="password" name="password" class="form-control" autocomplete="off"/></li>
+							<li class="divider"></li>
+							<li><input type="button" class="btn btn-primary" id="login" value="Login" name="submit"></li>
+			        	</form>		          
+			        </ul>
+			    </li>
+		        <li class="dropdown" id="user-account">
+		        	<ul class="dropdown-menu">
+		          		<li><a href="myAccount">MyAccount</a></li>
+		          		<li class="divider"></li>
+		          		<li id="logout"><a href="javascript:void(0)">Logout</a></li>
+		        	</ul>
+		        </li>
 		    </ul>
 		  </div><!-- /.navbar-collapse -->
 		</nav>
 	<div class="container">
-	    <div class="books">
-	    </div>
+		<div class="sidebar-menu">
+			<div id="sidebar-wrapper side-color">
+	            <ul class="sidebar-nav">
+	                <li class="sidebar-brand">
+	                        <u>Category</u>
+	                </li>
+	                <li>
+	                    <a href="#"><b>Accounting</b></a>
+	                </li>
+	                <li>
+	                    <a href="#">Economics</a>
+	                </li>
+	                <li>
+	                    <a href="#">Programming</a>
+	                </li>
+	                <li>
+	                    <a href="#" data-toggle="collapse" data-target="#sub1">Natural Sciences<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+	                    <ul class="nav collapse" id="sub1">
+	                    	<li>
+	                    		<a href="#">dichik</a>
+	                    	</li>
+	                    </ul>
+	                </li>
+	                <li>
+	                    <a href="#">Languages</a>
+	                </li>
+	            </ul>
+	        </div>
+		</div>
+		<div class="sidebar-results">
+		</div>
 	</div>
 </body>
 </html>

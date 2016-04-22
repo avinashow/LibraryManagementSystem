@@ -9,13 +9,13 @@ class Books extends CI_model{
 	}
 
 	public function create($data) {
-		$this->db->insert("books", array(
-			"book_info_id" => $data["bookid"],
-			"rentable_days" => $data["rent"],
-			"Edition" => $data["edition"],
-			"isbn" => $data["isbn"],
-			"status" => $data["status"]
-		));
+		for ($x = 0; $x < $data[copies]; $x++) {
+			$this->db->insert("books", array(
+				"book_info_id" => $data["bookid"],
+				"rentable_days" => $data["rent"],
+				"status" => $data["status"]
+			));
+		}		
 	}
 
 	public function getBooksById($data) {

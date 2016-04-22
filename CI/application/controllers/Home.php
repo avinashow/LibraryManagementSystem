@@ -8,7 +8,7 @@ class Home extends CI_controller {
 	}	
 
 	public function index() {		
-		$this->load->view("AddBookForm");
+		return $this->load->view("AddBookForm");
 	}
 
 	public function getOptions() {
@@ -16,10 +16,13 @@ class Home extends CI_controller {
 		$this->load->model("BookInfo");
 		$book = $this->BookInfo->get_all();
 		$array = [];
+		$subdict = array();	
 		foreach ($book->result() as $row) {		
-			$dict = array();	
-			$dict[$row->title] = $row->id;
-			array_push($array,$dict);
+			$dict = array();
+			$dict["id"] = $row->id;
+			$dict["edition"] = $row->Edition;
+			$subdict[$row->title] = $dict;
+			array_push($array,$subdict);
 		}
 		$result["data"] = $array;
 		echo json_encode($result);
@@ -30,14 +33,15 @@ class Home extends CI_controller {
 		$postDictionary["title"] = $_POST["Title"];
 		$postDictionary["publisher"] = $_POST["Publisher"];
 		$postDictionary["Pages"] = $_POST["Pages"];
+		$postDictionary["isbn"] = $_POST["ISBN"];
+		$postDictionary["edition"] = $_POST["Edition"];
 		$postDictionary["image_url"] = 'images/'.basename($_FILES["fileToUpload"]["name"]);
 		$this->load->database();
 		$this->load->model('BookInfo');
-		$book_title["title"] = $postDictionary["title"];
-		$book_result = $this->BookInfo->getBookIdTitle($book_title);
+		$book_result = $this->BookInfo->getBookIdTitle($postDictionary);
 		if ($book_result->num_rows() == 0) { // verify whether these details are present in database
 			$this->BookInfo->create($postDictionary);
-			$book_row= $this->BookInfo->getBookIdTitle($book_title);
+			$book_row= $this->BookInfo->getBookIdTitle($postDictionary);
 			foreach($book_row->result() as $row) {
 				$book_id = $row->id;
 			}
@@ -121,8 +125,7 @@ class Home extends CI_controller {
 
 	function addBooks() {
 		$postBooks["bookid"] = $_POST["title"];
-		$postBooks["isbn"] = $_POST["ISBN"];
-		$postBooks["edition"] = $_POST["Edition"];
+		$postBooks["copies"] = $_POST["copies"];
 		$postBooks["rent"] = $_POST["RentableDays"];
 		$postBooks["status"] = "Available";
 		$this->load->database();

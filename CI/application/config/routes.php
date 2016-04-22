@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "Booksearch";
 $route['404_override'] = '';
 
 
@@ -46,11 +46,16 @@ $route['logout'] = "Logout";
 
 
 //$route["home"] = "Home";
+$route["home"] = "Admin";
+
 $route["addbook"] = "Home";
 
 $route["search"] = "Booksearch";
 
 $route["myAccount"] = "Myaccount";
+
+$route["allbooks"] = "Allbooks";
+
 
 //$route["addbook"] = "BookController";
 

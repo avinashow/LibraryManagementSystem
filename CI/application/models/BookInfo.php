@@ -13,17 +13,18 @@ class BookInfo extends CI_model{
 			"title" => $data["title"],
 			"publisher" => $data["publisher"],
 			"pages" => $data["Pages"],
-			"image_url" => $data["image_url"]
+			"image_url" => $data["image_url"],
+			"isbn" => $data["isbn"],
+			"Edition" => $data["edition"]
 		));
 	}
 
 	public function getBookIdTitle($data) {
-		$this->db->like("title",$data["title"]);
+		$this->db->where("isbn", $data["isbn"]);
 		return $this->db->get("book_info");
 	}
 
 	public function get_all() {
-		$this->db->select("id,title");
 		return $this->db->get("book_info");
 
 	}

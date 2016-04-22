@@ -1,6 +1,5 @@
 <?php
 
-
 class Logout extends CI_controller {
 
 	public function __construct() {
@@ -12,8 +11,10 @@ class Logout extends CI_controller {
 	}
 
 	public function index() {
-		$this->session->unset_userdata("username");
-		redirect("/login");
+	}
+
+	public function signout() {
+		$this->session->sess_destroy();
 	}
 }
 
