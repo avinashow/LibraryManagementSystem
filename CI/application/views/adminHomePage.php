@@ -15,8 +15,38 @@
 	<link rel="stylesheet" href="assets/js/css/alertify.css">
 	<link rel="stylesheet" href="assets/js/css/themes/default.css">
 
+	<style>
+		@import url('//netdna.bootstrapcdn.com/twitter-bootstrap/2.0.4/css/bootstrap-combined.min.css');
+		#myCarousel {
+			position: absolute;
+		    margin-top: 40px;
+		    width: 50%;
+		    top: 20%;
+		    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+		    height: 60%;
+		    left: 25%;
+		}
+
+		.carousel-linked-nav,
+		.item img {
+		  display: block; 
+		  margin: 0 auto;
+		}
+
+		.carousel-linked-nav {
+		  width: 120px;
+		  margin-bottom: 20px;   
+		}
+
+	</style>
+
 	<script>
 		$(document).ready(function() {
+			$(".carousel-control").css("top","50%");
+			$(".carousel-control").fadeOut();
+			$('#myCarousel').carousel({
+			  interval: 3000
+			});
 			if (sessionStorage.getItem("username") === null) {
 				$("#add").hide();
 			} else {
@@ -41,6 +71,10 @@
 			$("#logout").click(function() {
 				sessionStorage.removeItem("username");
 				window.location="home";
+			});
+
+			$("#myCarousel").hover(function(){
+				$(".carousel-control").fadeToggle();
 			});
 
 		});
@@ -88,5 +122,24 @@
 	    </ul>
 	  </div><!-- /.navbar-collapse -->
 	</nav>
+	<div class="container">
+		<div id="myCarousel" class="carousel slide">
+		  <!-- Carousel items -->
+		  <div class="carousel-inner">
+		    <div class="active item">
+		        <img src="images/libqualwordle.jpg" style="width:100%;height:100%" />
+		    </div>
+		    <div class="item">
+		        <img src="images/library-reading-poster-designed-your-school-kindergarten-children-53067145.jpg" style="width:100%;height:100%;" />
+		    </div>
+		    <div class="item">
+		        <img src="images/events-lake-county-public-library-indiana.png" style="width:100%;height:100%" />
+		    </div>
+		  </div>
+		  <!-- Carousel nav -->
+		  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+		  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+		</div>
+	</div>
 </body>
 </html>

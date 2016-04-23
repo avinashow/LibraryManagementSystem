@@ -21,7 +21,7 @@
 			$.get('Home/getOptions','',function(data) {
 				var data_objects = eval("(" + data + ")");
 				displayAddBookForm();
-				displayAddBooksForm(data_objects["data"]);
+				displayAddBooksForm(data_objects);
 			});
 
 			$("#logout").click(function() {
@@ -46,14 +46,9 @@
 			var dataDict = {};
 			var formField = $("#addbooks");
 			var fieldNames = ["copies","Rentable Days"];
-			if (data_objects.length > 0) {
-				for (var i = 0;i < data_objects.length; i++) {
-					for (var key in data_objects[i]) {
-						dataDict[key] = data_objects[i][key]["id"];
-						$("<li value='" + data_objects[i][key]['id'] +"'><a href='JavaScript:void(0)'>" + key +"</a></li>'").appendTo("#dropdown-titles");
-						$("<li value='" + data_objects[i][key]['id'] +"' name='"+ key +"'><a href='JavaScript:void(0)'>" + data_objects[i][key]['edition'] +"</a></li>'").appendTo("#dropdown-edition");
-					}				
-				}
+			for (var title in data_objects) {
+				var name = title + " (Edition - " + data_objects[title]["edition"] + ")";
+				$("<li value='" + data_objects[title]['id'] +"'><a href='JavaScript:void(0)'>" + name +"</a></li>'").appendTo("#dropdown-titles");				
 			}
 			
 			for (var i = 0; i < fieldNames.length; i++) {
@@ -63,13 +58,7 @@
 
 			$("#dropdown-titles li").click(function() {
 				$("#selvalue").text($(this).text());
-				$("#titleval").val(dataDict[$(this).text()]);
-			});
-
-			$("#dropdown-edition li").click(function() {
-				$("#edition-value").text($(this).text());
-				var book_name = $(this).attr("name");
-				$("#editionval").val(dataDict[book_name]);
+				$("#titleval").val($(this).val());
 			});
 		}
 	</script>
@@ -156,18 +145,6 @@
 			                   <span data-bind="label" id="selvalue" name="title">Select One</span>&nbsp;<span class="caret"></span>
 			                 </button>
 			                 <ul class="dropdown-menu" id="dropdown-titles" role="menu">
-			                 	<li><a href="javascript:void(0)">Select One</a></li>
-			                 </ul>
-			            </div>
-		        	</div>
-		        	<input type="hidden" id="editionval" name="edition" value=""/>
-		        	<div class="form-group">		        		
-		        		<label>Edition</label><br>
-		        		<div class="btn-group">
-			                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			                   <span data-bind="label" id="edition-value" name="edition">Select One</span>&nbsp;<span class="caret"></span>
-			                 </button>
-			                 <ul class="dropdown-menu" id="dropdown-edition" role="menu">
 			                 	<li><a href="javascript:void(0)">Select One</a></li>
 			                 </ul>
 			            </div>

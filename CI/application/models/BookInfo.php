@@ -26,7 +26,6 @@ class BookInfo extends CI_model{
 
 	public function get_all() {
 		return $this->db->get("book_info");
-
 	}
 
 	public function delete($book_id) {

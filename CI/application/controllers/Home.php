@@ -22,10 +22,8 @@ class Home extends CI_controller {
 			$dict["id"] = $row->id;
 			$dict["edition"] = $row->Edition;
 			$subdict[$row->title] = $dict;
-			array_push($array,$subdict);
 		}
-		$result["data"] = $array;
-		echo json_encode($result);
+		echo json_encode($subdict);
 	}
 
 	public function upload() {
@@ -119,17 +117,44 @@ class Home extends CI_controller {
 		}
 		$var = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 
+		//insert into the search data table
+		$arrayofData = array($_POST["Title"], $_POST["Publisher"], $_POST["Author"]);
+		for ($x = 0; $x < count($arrayofData); $x++) {
+			$testObject = new Home();
+			$testObject->searchdataTable($arrayofData[$x], $book_id);
+		}
+		
+
 		redirect("addbook","refresh");
 
 	}
 
+	function searchdataTable($data, $book_id) {
+		$titledata_array = explode(" ",$data);
+		for ($x = 0; $x < count($titledata_array); $x++) {
+			$searchdata["title"] = $titledata_array[$x];
+			for ($y = $x; $y<count($titledata_array); $y++) {
+				if ($x != $y) {
+					$searchdata["title"] = $searchdata["title"] ." ".$titledata_array[$y];
+				}
+				$searchdata["id"] = $book_id;
+				$this->load->database();
+				$this->load->model("Searchdata");
+				$this->Searchdata->createRecord($searchdata);
+			}
+		}
+	}
+
 	function addBooks() {
 		$postBooks["bookid"] = $_POST["title"];
+		$postBooks["edition"] = $_POST["edition"];
 		$postBooks["copies"] = $_POST["copies"];
 		$postBooks["rent"] = $_POST["RentableDays"];
 		$postBooks["status"] = "Available";
 		$this->load->database();
 		$this->load->model('Books');
+		$this->load->model("BookInfo");
+
 		$this->Books->create($postBooks);
 		redirect("addbook","refresh");
 	}
