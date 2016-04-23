@@ -24,6 +24,11 @@ class BookInfo extends CI_model{
 		return $this->db->get("book_info");
 	}
 
+	public function getBookDetailsById($data) {
+		$this->db->where("id",$data["id"]);
+		return $this->db->get("book_info");
+	}
+
 	public function get_all() {
 		return $this->db->get("book_info");
 	}

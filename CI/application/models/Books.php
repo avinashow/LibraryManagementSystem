@@ -22,6 +22,14 @@ class Books extends CI_model{
 		return $this->db->get_where("books",array("book_info_id" => $data));
 	}
 
+	public function checkAvailability($data) {
+		$result = $this->db->get_where("books",array("book_info_id"=>$data,"status"  => "Available"));
+		if ($result->num_rows() > 0) {
+			return true;
+		}
+		return false;
+	}
+
 	public function delete($book_id) {
 
 	}

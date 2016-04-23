@@ -52,6 +52,8 @@ $route["addbook"] = "Home";
 
 $route["search"] = "Booksearch";
 
+$route["d"] = "Details";
+
 $route["myAccount"] = "Myaccount";
 
 $route["allbooks"] = "Allbooks";

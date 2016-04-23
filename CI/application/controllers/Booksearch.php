@@ -11,46 +11,36 @@ class Booksearch extends CI_controller {
 		return $this->load->view("homePage");
 	}
 
+
 	public function search() {
 		//echo $_GET["data"];
 		$this->load->database();
-		$this->load->model("BookInfo");
+		$this->load->model("Searchdata");
 		$data["title"] = $_GET["data"];
-		$bookRow = $this->BookInfo->getBookIdTitle($data);
-		$book_id = [];
-		$book_name = [];
-		$book_url = [];
-		$book_publisher = [];
-		$book_pages = [];
-		$subMainResponse = array();
-		//$mainResponse = array();
-		$mainResponse["data"] = array();
-		if ($bookRow->num_rows() > 0) {
-			foreach ($bookRow->result() as $row) {
-				array_push($book_id,$row->id);
-				array_push($book_name,$row->title);
-				array_push($book_url,$row->image_url);
-				array_push($book_publisher,$row->publisher);
-				array_push($book_pages,$row->pages);
-			}
-			for ($i = 0; $i < count($book_id); $i++) {
+		$bookRow = $this->Searchdata->getBookIdByTitle($data);
+		$subdict = array();
+		foreach ($bookRow->result() as $row) {
+			$rowid["id"] = $row->id;
+			$this->load->model("BookInfo");
+			$book_Info_Row = $this->BookInfo->getBookDetailsById($rowid);
+			foreach ($book_Info_Row->result() as $row1) {
+				$subdict1 = array();
+				$subdict1["title"] = $row1->title;
+				$subdict1["isbn"] = $row1->ISBN;
+				$subdict1["image_url"] = $row1->image_url;
+				$subdict1["edition"] = $row1->Edition;
+				$subdict1['publisher'] = $row1->publisher;
 				$this->load->model("Books");
-				$booksRows = $this->Books->getBooksById($book_id[$i]);
-				foreach ($booksRows->result() as $row) {
-					$response = array();
-					$response["id"] = $row->id;
-					$response["title"] = $book_name[$i];
-					$response["Edition"] = $row->Edition;
-					$response["isbn"] = $row->isbn;
-					$response["publisher"] = $book_publisher[$i];
-					$response["pages"] = $book_pages[$i];
-					$response["url"] = $book_url[$i];
-					array_push($subMainResponse,$response);
+				if ($this->Books->checkAvailability($row1->id)) {
+					$subdict1["status"] = "A";
+				} else {
+					$subdict1["status"] = "N/A";
 				}
+				$subdict[$row1->id] = $subdict1;
 			}
-			$mainResponse["data"] = $subMainResponse;
+
 		}
-		echo json_encode($mainResponse);
+		echo json_encode($subdict);
 	}
 
 }

@@ -13,6 +13,14 @@
 				"date" => date("m-d-y")
 			));
 		}
+
+		public function getBookIdByTitle($data) {
+			$this->db->select("id");
+			$this->db->distinct();
+			$this->db->from("searchdata");
+			$this->db->like("term",$data["title"],"after");
+			return $this->db->get();
+		}
 	}
 
 ?>

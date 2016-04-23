@@ -1,7 +1,6 @@
 <?php
 	$this->load->library('session');
 	$this->load->library('encrypt');
-	session_start();
 ?>
 <html>
 <head>
@@ -30,10 +29,10 @@
 						//console.log(data_objects["data"][0]["url"])
 						var data_objects = eval("(" + data + ")");
 						$(".books").empty();
-						if (data_objects["data"].length == 0) {
+						if (data_objects.length == 0) {
 							$("<span id='span-position'><p style='font-size:20px;'>No Entries Found</p><span>").appendTo(".books");
 						} else {							
-							displayBooks(data_objects["data"]);
+							displayBooks(data_objects);
 						}						
 					});
 				} else {
@@ -42,14 +41,22 @@
 			});
 
 			function displayBooks(array_data) {
-				var len = array_data.length;
 				var k = 0;
-				for (var i = 0; i < len; i++) {
-					if (i == (4+(4*k))) {
+				for (var bookid in array_data) {
+					sessionStorage.setItem(bookid,JSON.stringify(array_data[bookid]));
+					if (k == 4) {
 						$("<br>").appendTo(".books");
-      					k = k + 1;
+						k = 0;      					
 					}
-					$("<div class='search' id='"+ array_data[i]["id"] +"' style='display:inline-block'><div id='image'><img src='"+ array_data[i]["url"] +"' height='100%' width = '100%'></div></div>").appendTo(".books");
+					$("<div class='search' id='"+ bookid +"' style='display:inline-block'><a href='d?infoid="+ bookid +"'><div id='image'><img src='"+ array_data[bookid]["image_url"] +"' height='100%' width = '100%'></div></a></div>").appendTo(".books");
+					k = k + 1;
+
+					// $(".search").click(function() {
+					// 	var id = $(this).attr("id");
+					// 	alert(id);
+					// 	$.get("Details/getDetails",{data:id}, function(data){	
+					// 	});
+					// });
 				}
 			}
 
@@ -67,6 +74,8 @@
 					}
 				});
 			});
+
+
 
 			$("#logout").click(function () {
 				$.post("Logout/signout","",function(data){
