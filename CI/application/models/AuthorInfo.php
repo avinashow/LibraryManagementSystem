@@ -15,7 +15,8 @@ class AuthorInfo extends CI_model{
 		));
 	}
 
-	public function get_all() {
+	public function getAuthorName($data) {
+		return $this->db->get_where("author_info",array("id" => $data));
 	}
 
 	public function getItem($author) {

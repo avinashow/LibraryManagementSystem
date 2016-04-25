@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="assets/js/css/themes/default.css">
 	<script>
 		$(document).ready(function() {
+			$( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
 			$("#user-account").hide();
 			$("#login-form").show();
 			$("#search").keyup(function() {
@@ -119,9 +120,29 @@
 			position: fixed;
 		}
 
+		.alert-box {
+			padding: 15px;
+		    margin-bottom: 20px;
+		    border: 1px solid transparent;
+		    border-radius: 4px;  
+		    text-align: center;
+		    left:25%;
+    		width:50%;
+    		position:absolute;
+		}
+
+		.success {
+		    color: #3c763d;
+		    background-color: #dff0d8;
+		    border-color: #d6e9c6;
+		    display: none;
+		    font-size:20px;
+		}
+
 	</style>
 </head>
 <body>
+		
 		<nav class="navbar navbar-default" role="navigation">
 		  <!-- Brand and toggle get grouped for better mobile display -->
 		  <div class="navbar-header">
@@ -172,6 +193,7 @@
 		    </ul>
 		  </div><!-- /.navbar-collapse -->
 		</nav>
+		<div class="alert-box success">User HomePage</div>
 	<div class="container">
 	    <div class="books">
 	    </div>

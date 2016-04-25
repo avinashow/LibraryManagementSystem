@@ -16,6 +16,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 		<script>
 			$(document).ready(function() {
+				$( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
 				var username = <?php echo "'".$this->session->userdata("username")."'"; ?>;
 				if (username.length > 0) {
 					$("#user-account").show();
@@ -36,8 +37,10 @@
 
 				}
 				$("#title").html("<h1><?php echo $title; ?></h1>");
-				$("#isbn").html("ISBN : <h5><?php echo $isbn; ?><h5>");
-				$("#edition").html("Edition : <h5><?php echo $edition; ?></h5>");
+				$("#author").html("<h4> - <?php echo $author;?></h4>");
+				$("#isbn").html("<h5>ISBN :<?php echo $isbn; ?><h5>");
+				$("#edition").html("<h5>Edition : <?php echo $edition; ?></h5>");
+				$("#pages").html("<h5>Pages : <?php echo $pages; ?></h5>");
 				$(".book_image").html("<img src='<?php echo $image_url; ?>' style='width:100%;height:100%;'>")
 				$("input[name='borrow']").attr("id",<?php echo $id; ?>);
 			});
@@ -47,6 +50,7 @@
 			    position: absolute;
 			    width: 20%;
 			    height: 50%;
+			    left: 5%;
 			}
 
 			.book_description {
@@ -55,6 +59,26 @@
 			    width: 69%;
 			    height: 80%;
 			}
+
+			.alert-box {
+				padding: 15px;
+			    margin-bottom: 20px;
+			    border: 1px solid;
+			    border-radius: 4px;  
+			    text-align: center;
+			    left:25%;
+	    		width:50%;
+	    		position:absolute;
+			}
+
+			.success {
+			    color: #3c763d;
+			    background-color: #dff0d8;
+			    border-color: #d6e9c6;
+			    display: none;
+			    font-size:20px;
+			}
+
 		</style>
 	</html>
 	<body>
@@ -100,17 +124,19 @@
 		      </li>
 		    </ul>
 		  </div><!-- /.navbar-collapse -->
+		  <div class="alert-box success">BookDetails Page</div>
 		</nav>
 		<div class="container">
 			<div class="book_image">
 			</div>
 			<div class="book_description">
-				<span id="title"></span><br>
-				<span id="author"></p><br>
+				<span id="title"></span>
+				<span id="author"></span><br>
 				<span id="details">
 					<ul><h4><strong><u>Details</u></strong></h4>
 						<li><p id="isbn"></p></li>
-						<li><p id="edition"></p><li>
+						<li><p id="edition"></p></li>
+						<li><p id="pages"></p></li>
 					</ul>
 				</span><br> 
 				<input type="button" id="borrow" class="btn btn-default" name="borrow" value="borrow"/>

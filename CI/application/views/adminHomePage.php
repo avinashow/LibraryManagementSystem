@@ -38,10 +38,30 @@
 		  margin-bottom: 20px;   
 		}
 
+		.alert-box {
+			padding: 15px;
+		    margin-bottom: 20px;
+		    border: 1px solid transparent;
+		    border-radius: 4px;  
+		    text-align: center;
+		    left:25%;
+    		width:50%;
+    		position:absolute;
+		}
+
+		.success {
+		    color: #3c763d;
+		    background-color: #dff0d8;
+		    border-color: #d6e9c6;
+		    display: none;
+		    font-size:20px;
+		}
+
 	</style>
 
 	<script>
 		$(document).ready(function() {
+			$( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
 			$(".carousel-control").css("top","50%");
 			$(".carousel-control").fadeOut();
 			$('#myCarousel').carousel({
@@ -122,6 +142,7 @@
 	    </ul>
 	  </div><!-- /.navbar-collapse -->
 	</nav>
+	<div class="alert-box success">Demo on Adding a book and finding</div>
 	<div class="container">
 		<div id="myCarousel" class="carousel slide">
 		  <!-- Carousel items -->

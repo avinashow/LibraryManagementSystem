@@ -17,6 +17,8 @@
 		$(document).ready(options);
 
 		function options() {
+			$("div.success").text("AddBook Page");
+			$( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
 			$("#id").text("welcome " + sessionStorage.getItem("username"));
 			$.get('Home/getOptions','',function(data) {
 				var data_objects = eval("(" + data + ")");
@@ -40,6 +42,7 @@
 			}
 			$("<div class='form-group'><label>Upload Image</label><input type='file' name='fileToUpload' id='fileToUpload'/></div>").appendTo(formField);
 			$("<input type='submit' id='submit_form' class='btn btn-primary' value='Submit'/>").appendTo(formField);
+
 		}
 
 		function displayAddBooksForm(data_objects) {
@@ -49,12 +52,16 @@
 			for (var title in data_objects) {
 				var name = title + " (Edition - " + data_objects[title]["edition"] + ")";
 				$("<li value='" + data_objects[title]['id'] +"'><a href='JavaScript:void(0)'>" + name +"</a></li>'").appendTo("#dropdown-titles");				
-			}
-			
+			}			
 			for (var i = 0; i < fieldNames.length; i++) {
 				$("<div class='form-group'><label>" + fieldNames[i] +"</label><input type='text' class='form-control field-size' name='"+ fieldNames[i].replace(/\s/g, '') +"'/></div>").appendTo(formField);
 			}
 			$("<input type='submit' id='submit_form' class='btn btn-primary' value='Submit'/>").appendTo(formField);
+
+			$("#copy").click(function () {
+				$("div.success").text("AddBookCopies Page");
+				$( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+			})
 
 			$("#dropdown-titles li").click(function() {
 				$("#selvalue").text($(this).text());
@@ -91,6 +98,25 @@
 			position: relative;
 			left: 10%;
 		}
+
+		.alert-box {
+			padding: 15px;
+		    margin-bottom: 20px;
+		    border: 1px solid transparent;
+		    border-radius: 4px;  
+		    text-align: center;
+		    left:25%;
+    		width:50%;
+    		position:absolute;
+		}
+
+		.success {
+		    color: #3c763d;
+		    background-color: #dff0d8;
+		    border-color: #d6e9c6;
+		    display: none;
+		    font-size:20px;
+		}
 	</style>
 </head>
 <body>
@@ -122,10 +148,11 @@
 	    </ul>
 	  </div><!-- /.navbar-collapse -->
 	</nav>
+	<div class="alert-box success"></div>
 	<div class="container">
 		<ul class="nav nav-tabs" id="myTab">
-			<li class="active"><a data-target="#addbookform" data-toggle="tab">AddNewBook</a></li>
-			<li><a data-target="#addbooksform" data-toggle="tab">Addcopies</a></li>
+			<li class="active"><a data-target="#addbookform" id="new" data-toggle="tab">AddNewBook</a></li>
+			<li><a data-target="#addbooksform" id="copy" data-toggle="tab">Addcopies</a></li>
 		</ul>
 		<div class="tab-content">
 			<div class="form-position tab-pane active" id="addbookform">

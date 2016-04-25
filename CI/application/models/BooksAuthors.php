@@ -15,8 +15,9 @@ class BooksAuthors extends CI_model{
 		));
 	}
 
-	public function get_item($author_id, $book_id) {
-
+	public function getAuthorById($data) {
+		$this->db->select("author_id");
+		return $this->db->get_where("book_authors_info",array("book_id" => $data["id"]));
 	}
 
 	public function delete($author_id, $book_id) {
