@@ -12,22 +12,22 @@ class Details extends CI_controller {
 		$subdict1 = array();
 
 		$this->load->database();
-		$this->load->model("BookInfo");
-		$book_Info_Row = $this->BookInfo->getBookDetailsById($data);
+		$this->load->model("bookinfo");
+		$book_Info_Row = $this->bookinfo->getBookDetailsById($data);
 
-		$this->load->model("BooksAuthors");
-		$book_author = $this->BooksAuthors->getAuthorById($data);
+		$this->load->model("booksauthors");
+		$book_author = $this->booksauthors->getAuthorById($data);
 		$authorId = $book_author->row();
 
-		$this->load->model("AuthorInfo");
-		$author_Names = $this->AuthorInfo->getAuthorName($authorId->author_id);
+		$this->load->model("authorinfo");
+		$author_Names = $this->authorinfo->getAuthorName($authorId->author_id);
 		$author_name_row = $author_Names->row();
 		$subdict1["author"] = $author_name_row->firstname." ".$author_name_row->lastname;
 
 		
 		foreach ($book_Info_Row->result() as $row1) {
 			$subdict1["title"] = $row1->title;
-			$subdict1["isbn"] = $row1->ISBN;
+			$subdict1["isbn"] = $row1->isbn;
 			$subdict1["pages"] = $row1->pages;
 			$subdict1["image_url"] = $row1->image_url;
 			$subdict1["edition"] = $row1->Edition;

@@ -35,11 +35,11 @@ class Home extends CI_controller {
 		$postDictionary["edition"] = $_POST["Edition"];
 		$postDictionary["image_url"] = 'images/'.basename($_FILES["fileToUpload"]["name"]);
 		$this->load->database();
-		$this->load->model('BookInfo');
-		$book_result = $this->BookInfo->getBookIdTitle($postDictionary);
+		$this->load->model('bookinfo');
+		$book_result = $this->bookinfo->getBookIdTitle($postDictionary);
 		if ($book_result->num_rows() == 0) { // verify whether these details are present in database
-			$this->BookInfo->create($postDictionary);
-			$book_row= $this->BookInfo->getBookIdTitle($postDictionary);
+			$this->bookinfo->create($postDictionary);
+			$book_row= $this->bookinfo->getBookIdTitle($postDictionary);
 			foreach($book_row->result() as $row) {
 				$book_id = $row->id;
 			}
@@ -52,11 +52,11 @@ class Home extends CI_controller {
 		//Posting the data into Categories table
 		$postCategory["Category"] = $_POST["Category"];
 		$this->load->database();
-		$this->load->model('Categories');
-		$category_row = $this->Categories->getItem($postCategory);
+		$this->load->model('categories');
+		$category_row = $this->categories->getItem($postCategory);
 		if ($category_row->num_rows == 0) {
-			$this->Categories->create($postCategory);
-			$cat_row = $this->Categories->getItem($postCategory);
+			$this->categories->create($postCategory);
+			$cat_row = $this->categories->getItem($postCategory);
 			foreach ($cat_row->result() as $row) {
 				$category_id = $row->cat_id;
 			}
@@ -72,11 +72,11 @@ class Home extends CI_controller {
 		$postAuthor["firstname"] = $author_name[0];
 		$postAuthor["lastname"] = $author_name[1];
 		$this->load->database();
-		$this->load->model('AuthorInfo');
-		$author_result = $this->AuthorInfo->getItem($postAuthor);
+		$this->load->model('authorinfo');
+		$author_result = $this->authorinfo->getItem($postAuthor);
 		if ($author_result->num_rows() == 0) {
-			$this->AuthorInfo->create($postAuthor);
-			$auth_row= $this->AuthorInfo->getItem($postAuthor);
+			$this->authorinfo->create($postAuthor);
+			$auth_row= $this->authorinfo->getItem($postAuthor);
 			foreach ($auth_row->result() as $row) {
 				$auth_id = $row->id;
 			}
@@ -91,15 +91,15 @@ class Home extends CI_controller {
 		$postAuthorBookTable["bookid"] = $book_id;
 		$postAuthorBookTable["authorid"] = $auth_id;
 		$this->load->database();
-		$this->load->model('BooksAuthors');
-		$this->BooksAuthors->create($postAuthorBookTable);
+		$this->load->model('booksauthors');
+		$this->booksauthors->create($postAuthorBookTable);
 
 		//posting into the table category book table
 		$postCategoryBookTable["bookid"] = $book_id;
 		$postCategoryBookTable["categoryid"] = $category_id;
 		$this->load->database();
-		$this->load->model('BooksCategory');
-		$this->BooksCategory->create($postCategoryBookTable);
+		$this->load->model('bookscategory');
+		$this->bookscategory->create($postCategoryBookTable);
 
 		//Uploading the Image
 		$target_dir = 'images/';
@@ -139,8 +139,8 @@ class Home extends CI_controller {
 				}
 				$searchdata["id"] = $book_id;
 				$this->load->database();
-				$this->load->model("Searchdata");
-				$this->Searchdata->createRecord($searchdata);
+				$this->load->model("searchdata");
+				$this->searchdata->createRecord($searchdata);
 			}
 		}
 	}
@@ -152,10 +152,8 @@ class Home extends CI_controller {
 		$postBooks["rent"] = $_POST["RentableDays"];
 		$postBooks["status"] = "Available";
 		$this->load->database();
-		$this->load->model('Books');
-		$this->load->model("BookInfo");
-
-		$this->Books->create($postBooks);
+		$this->load->model('books');
+		$this->books->create($postBooks);
 		redirect("addbook","refresh");
 	}
 }

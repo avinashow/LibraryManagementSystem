@@ -9,13 +9,13 @@
 		public function createRecord($data) {
 			$this->db->insert("searchdata",array(
 				"term" => $data["title"],
-				"id" => $data["id"],
+				"book_id" => $data["id"],
 				"date" => date("m-d-y")
 			));
 		}
 
 		public function getBookIdByTitle($data) {
-			$this->db->select("id");
+			$this->db->select("book_id");
 			$this->db->distinct();
 			$this->db->from("searchdata");
 			$this->db->like("term",$data["title"],"after");
