@@ -13,8 +13,8 @@ class Home extends CI_controller {
 
 	public function getOptions() {
 		$this->load->database();
-		$this->load->model("BookInfo");
-		$book = $this->BookInfo->get_all();
+		$this->load->model("bookinfo");
+		$book = $this->bookinfo->get_all();
 		$array = [];
 		$subdict = array();	
 		foreach ($book->result() as $row) {		

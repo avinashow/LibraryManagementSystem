@@ -13,6 +13,7 @@ class Booksearch extends CI_controller {
 
 
 	public function search() {
+		echo "dichik";
 		//echo $_GET["data"];
 		$this->load->database();
 		$this->load->model("Searchdata");
